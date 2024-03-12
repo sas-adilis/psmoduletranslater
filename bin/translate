@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$autoloadFiles = [
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/../PrestashopModuleTranslaterService.php',
+    __DIR__ . '/../PrestashopModuleTranslaterCommand.php',
+];
+foreach ($autoloadFiles as $autoloadFile) {
+    if (file_exists($autoloadFile)) {
+        require_once $autoloadFile;
+    }
+}
+
+use Symfony\Component\Console\Application;
+
+$application = new Application('translate', '1.0.0');
+$command = new PrestashopModuleTranslaterCommand();
+
+$application->add($command);
+$application->setDefaultCommand($command->getName());
+try {
+    $application->run();
+} catch (Exception $e) {
+}
