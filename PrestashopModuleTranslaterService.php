@@ -81,6 +81,7 @@ class PrestashopModuleTranslaterService
                 }
             }
 
+            $countTranslations = 0;
 
             foreach ($arrayToTranslate as $key => $text) {
                 if (!isset($translatedArray[$key])) {
@@ -91,7 +92,7 @@ class PrestashopModuleTranslaterService
                             $destinationIsoCountry
                         );
                         $translatedArray[$key] = $translation->text;
-                        echo 'translate';
+                        $countTranslations++;
                     } catch (\DeepL\DeepLException $e) {
                         echo "Erreur DeepL : " . $e->getMessage();
                     } catch (IOExceptionInterface $e) {
@@ -111,6 +112,8 @@ class PrestashopModuleTranslaterService
             } catch (IOExceptionInterface $e) {
                 echo "Une erreur s'est produite lors de l'écriture du fichier : " . $e->getMessage();
             }
+
+            echo "Translations for $destinationIsoCountry: $countTranslations\n";
 
         }
     }
