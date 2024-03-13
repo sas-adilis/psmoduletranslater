@@ -77,7 +77,9 @@ class PrestashopModuleTranslaterService
             if ($this->filesystem->exists($filePath)) {
                 include $filePath;
                 foreach ($_MODULE as $key => $value) {
-                    $translatedArray[$key] = $value;
+                    if (isset($arrayToTranslate[$key])) {
+                        $translatedArray[$key] = $value;
+                    }
                 }
             }
 
